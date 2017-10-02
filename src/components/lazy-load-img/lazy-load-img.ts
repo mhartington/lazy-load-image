@@ -5,7 +5,6 @@ import {
   AfterContentInit,
   OnDestroy,
   ElementRef,
-  NgZone
 } from '@angular/core';
 @Component({
   selector: 'lazy-load-img',
@@ -24,14 +23,14 @@ export class LazyLoadImgComponent implements AfterContentInit, OnDestroy {
     this._imgSrc = val;
   }
   @ViewChild('lazyImage') lazyImage: ElementRef;
-  constructor(public zone: NgZone) { }
+  constructor() { }
 
   ngAfterContentInit() {
     this.observer = new IntersectionObserver(this.onIntersection.bind(this));
     this.observer.observe(this.lazyImage.nativeElement);
   }
 
-  ngOnDestroy() { 
+  ngOnDestroy() {
     this.observer.disconnect()
   }
 
@@ -51,8 +50,8 @@ export class LazyLoadImgComponent implements AfterContentInit, OnDestroy {
     return new Promise((resolve, reject) => {
       let image = new Image();
       image.src = url;
-      image.onload = resolve();
-      image.onerror = reject();
+      image.onload = resolve;
+      image.onerror = reject;
     });
   }
 
