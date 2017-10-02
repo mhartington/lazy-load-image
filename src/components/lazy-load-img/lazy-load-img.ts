@@ -31,7 +31,9 @@ export class LazyLoadImgComponent implements AfterContentInit, OnDestroy {
     this.observer.observe(this.lazyImage.nativeElement);
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() { 
+    this.observer.disconnect()
+  }
 
   onIntersection(entries) {
     if (this.hasLoaded) this.observer.disconnect();
