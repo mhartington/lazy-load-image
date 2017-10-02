@@ -4,7 +4,7 @@ import {
   Input,
   AfterContentInit,
   OnDestroy,
-  ElementRef,
+  ElementRef
 } from '@angular/core';
 @Component({
   selector: 'lazy-load-img',
@@ -23,7 +23,7 @@ export class LazyLoadImgComponent implements AfterContentInit, OnDestroy {
     this._imgSrc = val;
   }
   @ViewChild('lazyImage') lazyImage: ElementRef;
-  constructor() { }
+  constructor() {}
 
   ngAfterContentInit() {
     this.observer = new IntersectionObserver(this.onIntersection.bind(this));
@@ -31,19 +31,20 @@ export class LazyLoadImgComponent implements AfterContentInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.observer.disconnect()
+    this.observer.disconnect();
   }
 
   onIntersection(entries) {
     if (this.hasLoaded) this.observer.disconnect();
     if (entries[0].intersectionRatio > 0) {
-      this.observer.unobserve(entries[0].target);
       this.preload(entries[0].target);
     }
   }
-
-  applyImage(target, src) {
-    target.src = src;
+  applyImage(target: HTMLImageElement, src) {
+    return new Promise((resolve, reject) => {
+      target.src = src;
+      resolve();
+    });
   }
 
   fetchImage(url) {
@@ -58,8 +59,9 @@ export class LazyLoadImgComponent implements AfterContentInit, OnDestroy {
   preload(targetEl) {
     return this.fetchImage(this.imgSrc)
       .then(() => {
-        this.applyImage(targetEl, this.imgSrc)
+        this.applyImage(targetEl, this.imgSrc);
         this.hasLoaded = true;
-      });
+      })
+      .then(() => targetEl.classList.add('loaded'));
   }
 }

@@ -6,66 +6,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <lazy-load-img imgSrc="http://lorempixel.com/400/200/"></lazy-load-img>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col col-4 *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]">
+        <lazy-load-img [imgSrc]=" 'http://lorempixel.com/200/300/?' + item "></lazy-load-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
